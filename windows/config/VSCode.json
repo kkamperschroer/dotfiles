@@ -1,0 +1,13 @@
+{
+    "files.autoSave": "onFocusChange",
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "workbench.colorTheme": "Monokai",
+    "editor.minimap.enabled": false,
+    "editor.fontSize": 12,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "team.showWelcomeMessage": false,
+    "window.zoomLevel": 0
+}

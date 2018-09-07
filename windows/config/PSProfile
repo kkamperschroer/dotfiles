@@ -1,0 +1,15 @@
+Import-Module posh-git
+Import-Module oh-my-posh
+Set-Theme Agnoster
+function Set-VisualStudio {
+    Push-Location "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
+    cmd /c "VsDevCmd.bat&set" |
+    ForEach-Object {
+        if ($_ -Match "=") {
+            $v = $_.Split("="); Set-Item -Force -Path "ENV:\$($v[0])"  -Value "$($v[1])"
+        }
+    }
+    Pop-Location
+    Write-Host "`nVisual Studio 2017 Command Prompt variables set." -ForegroundColor Yellow
+}
+Set-Alias vs Set-VisualStudio
