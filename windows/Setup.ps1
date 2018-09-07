@@ -47,15 +47,15 @@ if (-Not( Test-Path "C:\Windows\fonts\Hack-*"))
     Write-Output 'installing powerline Hack font...'
     git clone https://github.com/powerline/fonts.git --depth=1
     cd fonts
-    ./install.ps1 Hack-*
+    .\install.ps1 Hack-*
     cd ..
     Remove-Item fonts -Force -Recurse
 }
 
 Write-Output 'copying configs...'
-cp config/ConEmu.xml "$ENV:APPDATA\ConEmu.xml"
-cp config/PSProfile $PROFILE
-cp config/VSCode.json "$ENV:APPDATA\Code\User\settings.json"
-
+cp config\ConEmu.xml "$ENV:APPDATA\ConEmu.xml"
+cp config\PSProfile $PROFILE
+cp config\VSCode.json "$ENV:APPDATA\Code\User\settings.json"
+cp config\.gitconfig ~\.gitconfig
 
 Write-Output 'done'
