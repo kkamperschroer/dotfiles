@@ -1,0 +1,27 @@
+- hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+
+  - name: apt install prereq packages
+    apt:
+      pkg:
+      ## Baseline requirements
+      - vim
+      - openssh-server
+      - git
+      - zsh
+      - samba
+
+      ## Subsonic requirements
+      - openjdk-8-jre
+
+      
+  # Install oh-my-zsh
+  # Install Brave
+  # Install Subsonic
+  # Install Plex media server
+  # Configure samba
+  # 
+  
