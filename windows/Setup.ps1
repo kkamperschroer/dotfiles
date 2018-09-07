@@ -10,7 +10,7 @@ else
     Write-Output 'skipping choco install. already exists.'
 }
 
-$ChocoPackages = 'googlechrome', 'git', 'vscode', 'conemu', '7zip.install', 'jdk8', 'pasteboard', 'python2', 'vcredist2012', 'vcredist2013', 'firacode', '1password', 'slack', 'dropbox', 'visualstudio2017professional'
+$ChocoPackages = 'googlechrome', 'git', 'vscode', 'conemu', '7zip.install', 'jdk8', 'pasteboard', 'python2', 'vcredist2012', 'vcredist2013', 'firacode', '1password', 'slack', 'dropbox', 'visualstudio2017enterprise'
 ForEach ($PackageName in $ChocoPackages)
 {
     Write-Output "installing choco package $PackageName"
