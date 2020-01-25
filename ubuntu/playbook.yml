@@ -2,6 +2,14 @@
   connection: local
   become: yes
 
+  vars:
+    diskWarehouseId: "PARTUUID=0001c4ef-01"
+    diskWarehouseMount: "/media/Warehouse"
+    diskAlmacenId: "PARTUUID=80da3615-4f96-46cf-8a30-a650636d3b0e"
+    diskAlmacenMount: "/media/Almacen"
+    diskOCZId: "UUID=5adfa9de-044e-464b-a4da-22f2ea97033d"
+    diskOCZMount: "/media/OCZ"
+
   tasks:
 
   - name: apt install prereq packages
@@ -17,6 +25,45 @@
       ## Subsonic requirements
       - openjdk-8-jre
 
+  ## Sytem configurations
+  # fstab
+  - name: create mount points
+    file:
+      state: directory
+      mode: 755
+      path: "{{ item }}"
+    with_items:
+      - "{{ diskWarehouseMount }}"
+      - "{{ diskAlmacenMount }}"
+      - "{{ diskOCZMount }}"
+
+  - name: mount and fstab
+    mount:
+      path: "{{ item.path }}"
+      src: "{{ item.src }}"
+      fstype: "{{ item.fstype }}"
+      opts: "{{ item.opts }}"
+      passno: 2
+      state: mounted
+    with_items:
+      - { path: "{{ diskWarehouseMount }}", src: "{{ diskWarehouseId }}", fstype: "ntfs-3g", opts: "permissions,auto" }
+      - { path: "{{ diskAlmacenMount }}", src: "{{ diskAlmacenId }}", fstype: "ntfs-3g", opts: "permissions,auto" }
+      - { path: "{{ diskOCZMount }}", src: "{{ diskOCZId }}", fstype: "ext4", opts: "errors=remount-ro" }
+
+  - name: stop and disable unnecessary services
+    systemd:
+      enabled: false
+      state: stopped
+      name: "{{ item }}"
+    with_items:
+      - bolt.service
+      - cups-browsed.service
+      - cups.service
+      - ModemManager.service
+      - whoopsie.service
+
+  ## Services
+  # Subsonic
   - name: get subsonic deb
     get_url:
       url: https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.6.deb
@@ -27,6 +74,7 @@
       deb: /tmp/subsonic.deb
       state: present
 
+  # Plex
   - name: get plex media server
     get_url:
       url: https://downloads.plex.tv/plex-media-server-new/1.18.4.2171-ac2afe5f8/debian/plexmediaserver_1.18.4.2171-ac2afe5f8_amd64.deb
