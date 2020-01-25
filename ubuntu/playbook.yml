@@ -121,15 +121,4 @@
     apt:
       deb: /tmp/plex.deb
       state: present
-
-
-  # Install Subsonic
-
-  # Install Plex media server
-  # Configure samba
-  # 
-
-  # Write out what needs configuring
-  # go to {ip}:4040 to configure subsonic
-  # go to {ip}:asdf to configure plex, etc
   
