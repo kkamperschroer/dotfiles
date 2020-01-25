@@ -17,11 +17,34 @@
       ## Subsonic requirements
       - openjdk-8-jre
 
-      
-  # Install oh-my-zsh
-  # Install Brave
+  - name: get subsonic deb
+    get_url:
+      url: https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.6.deb
+      dest: /tmp/subsonic.deb
+
+  - name: install subsonic
+    apt:
+      deb: /tmp/subsonic.deb
+      state: present
+
+  - name: get plex media server
+    get_url:
+      url: https://downloads.plex.tv/plex-media-server-new/1.18.4.2171-ac2afe5f8/debian/plexmediaserver_1.18.4.2171-ac2afe5f8_amd64.deb
+      dest: /tmp/plex.deb
+  
+  - name: install plex
+    apt:
+      deb: /tmp/plex.deb
+      state: present
+
+
   # Install Subsonic
+
   # Install Plex media server
   # Configure samba
   # 
+
+  # Write out what needs configuring
+  # go to {ip}:4040 to configure subsonic
+  # go to {ip}:asdf to configure plex, etc
   
