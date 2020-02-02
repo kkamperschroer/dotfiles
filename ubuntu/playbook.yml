@@ -10,7 +10,7 @@
     disk_music_id: "UUID=C6D82005D81FF283"
     disk_music_mount: "/media/Music"
     service_subsonic_deb_url: "https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.6.deb"
-    service_plex_deb_url: "https://downloads.plex.tv/plex-media-server-new/1.18.4.2171-ac2afe5f8/debian/plexmediaserver_1.18.4.2171-ac2afe5f8_amd64.deb"
+    service_plex_deb_url: "https://downloads.plex.tv/plex-media-server-new/1.18.5.2309-f5213a238/debian/plexmediaserver_1.18.5.2309-f5213a238_amd64.deb"
 
   tasks:
 
