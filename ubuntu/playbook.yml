@@ -7,8 +7,8 @@
     disk_warehouse_mount: "/media/Warehouse"
     disk_almacen_id: "PARTUUID=80da3615-4f96-46cf-8a30-a650636d3b0e"
     disk_almacen_mount: "/media/Almacen"
-    disk_ocz_id: "UUID=5adfa9de-044e-464b-a4da-22f2ea97033d"
-    disk_ocz_mount: "/media/OCZ"
+    disk_music_id: "UUID=C6D82005D81FF283"
+    disk_music_mount: "/media/Music"
     service_subsonic_deb_url: "https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.6.deb"
     service_plex_deb_url: "https://downloads.plex.tv/plex-media-server-new/1.18.4.2171-ac2afe5f8/debian/plexmediaserver_1.18.4.2171-ac2afe5f8_amd64.deb"
 
@@ -37,7 +37,7 @@
     with_items:
       - "{{ disk_warehouse_mount }}"
       - "{{ disk_almacen_mount }}"
-      - "{{ disk_ocz_mount }}"
+      - "{{ disk_music_mount }}"
 
   - name: mount and fstab
     mount:
@@ -50,7 +50,7 @@
     with_items:
       - { path: "{{ disk_warehouse_mount }}", src: "{{ disk_warehouse_id }}", fstype: "ntfs-3g", opts: "permissions,auto" }
       - { path: "{{ disk_almacen_mount }}", src: "{{ disk_almacen_id }}", fstype: "ntfs-3g", opts: "permissions,auto" }
-      - { path: "{{ disk_ocz_mount }}", src: "{{ disk_ocz_id }}", fstype: "ext4", opts: "errors=remount-ro" }
+      - { path: "{{ disk_music_mount }}", src: "{{ disk_music_id }}", fstype: "ntfs-3g", opts: "permissions,auto" }
 
   - name: stop and disable unnecessary services
     systemd:
@@ -62,7 +62,6 @@
       - cups-browsed.service
       - cups.service
       - ModemManager.service
-      - whoopsie.service
 
   - name: configure hdparms spindown # just to save some always-on watts when server not in use
     lineinfile:
@@ -87,7 +86,7 @@
     with_items:
       - { name: "Warehouse", path: "/media/Warehouse" }
       - { name: "Almacen", path: "/media/Almacen" }
-      - { name: "Music", path: "/home/kyle/Music" } # NVME copy of music. Lowers HDD access
+      - { name: "Music", path: "/media/Music/Music" }
     register: configure_samba
 
   - name: reload samba
